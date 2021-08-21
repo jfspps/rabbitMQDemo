@@ -10,3 +10,10 @@ to the queue.
 
 Run the Publisher class to send messages to the queue. When the queue has several messages in place, run the Consumer class.
 Note that the consumer class will not terminate the connection and will continuously listen for messages.
+
+## Direct Exchange
+
+The exchange funnels messages with a _routing key_ to a queue with a matching _binding key_. The connection can be set up through
+ the queue itself or via the exchange in the management UI, though there must be a connection between the exchange and the 
+queue. An exchange can connect to multiple queues, each with different binding keys. The message that hits the exchange is then 
+sent to the appropriate queue based on the routing key in the message.
