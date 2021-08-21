@@ -26,3 +26,14 @@ sent to the appropriate queue based on the routing key in the message.
 ## Fanout Exchange
 
 The exchange sends the message to all queues that are bound to the exchange.
+
+## Topic exchange
+
+This is a somewhat less strict version of direct exchange in that the queues'
+binding keys take the form of an expression. If the expression allows for or agrees with the routing key of the message 
+then the exchange will publish the message to the queue.
+
+For example, queue with the binding key `"*.someText.*"` will accept all messages with a routing key where * is replaced with any 
+unbroken sequence of characters e.g. `"abc.someText.xyz12"`. A queue with a binding key `"someMoreText.#"` will accept messages which 
+have a routing key where # is replaced by any number of strings. Note here that the period . in the routing and binding keys are 
+equivalent to a whitespace in between words. There are other possibilities, including `"#.someOtherText.*.*.someMoreText"` etc.
