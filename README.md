@@ -4,7 +4,7 @@ Basic demonstration of a Java app publishing and consuming RabbitMQ messages
 
 To install RabbitMQ on Ubuntu, go [here](https://www.vultr.com/docs/install-rabbitmq-server-ubuntu-20-04-lts). Then set
   up a new queue with the defaults applied with the name "SomeQueue". Run this app and observe how one message is published 
-to the queue.
+to the queue. RabbitMQ (with management panel enabled) is usually `http://localhost:15672` by default.
 
 ## Publisher and Consumer
 
@@ -47,7 +47,7 @@ For example, the message could come with the header
 
 ```
 header = {
-  "keyItem1", "keyValue1"
+  "keyItem1=mob", "keyValue1=tv"
 }
 ```
 
@@ -56,28 +56,28 @@ The following queues would receive the message:
 ```
 header = {
   "x-match = any",
-  "keyItem1", "keyValue2"
+  "keyItem1=mob", "keyValue2=trees"
 }
 ```
 
 ```
 header = {
   "x-match = any",
-  "keyItem33", "keyValue1"
+  "keyItem33=bananas", "keyValue1=tv"
 }
 ```
 
 ```
 header = {
   "x-match = any",
-  "keyItem1", "keyValue1"
+  "keyItem1=mob", "keyValue1=tv"
 }
 ```
 
 ```
 header = {
   "x-match = all",
-  "keyItem1", "keyValue1"
+  "keyItem1=mob", "keyValue1=tv"
 }
 ```
 
@@ -86,20 +86,20 @@ The following would not receive the message:
 ```
 header = {
   "x-match = all",
-  "keyItem33", "keyValue1"
+  "keyItem33=twigs", "keyValue1=tv"
 }
 ```
 
 ```
 header = {
   "x-match = all",
-  "keyItem1", "keyValue11"
+  "keyItem1=mob", "keyValue11=branches"
 }
 ```
 
 ```
 header = {
   "x-match = all",
-  "keyItem33", "keyValue13"
+  "keyItem33=lakes", "keyValue13=rivers"
 }
 ```
