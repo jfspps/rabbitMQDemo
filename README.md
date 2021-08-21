@@ -37,3 +37,69 @@ For example, queue with the binding key `"*.someText.*"` will accept all message
 unbroken sequence of characters e.g. `"abc.someText.xyz12"`. A queue with a binding key `"someMoreText.#"` will accept messages which 
 have a routing key where # is replaced by any number of strings. Note here that the period . in the routing and binding keys are 
 equivalent to a whitespace in between words. There are other possibilities, including `"#.someOtherText.*.*.someMoreText"` etc.
+
+## Header exchange
+
+For this exchange, there is no routing key involved. Instead, a header is sent with the message, as a key-value pair. The matching `any` 
+and `all` are equivalent to `OR` and `AND`.
+
+For example, the message could come with the header
+
+```
+header = {
+  "keyItem1", "keyValue1"
+}
+```
+
+The following queues would receive the message:
+
+```
+header = {
+  "x-match = any",
+  "keyItem1", "keyValue2"
+}
+```
+
+```
+header = {
+  "x-match = any",
+  "keyItem33", "keyValue1"
+}
+```
+
+```
+header = {
+  "x-match = any",
+  "keyItem1", "keyValue1"
+}
+```
+
+```
+header = {
+  "x-match = all",
+  "keyItem1", "keyValue1"
+}
+```
+
+The following would not receive the message:
+
+```
+header = {
+  "x-match = all",
+  "keyItem33", "keyValue1"
+}
+```
+
+```
+header = {
+  "x-match = all",
+  "keyItem1", "keyValue11"
+}
+```
+
+```
+header = {
+  "x-match = all",
+  "keyItem33", "keyValue13"
+}
+```
