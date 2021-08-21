@@ -11,9 +11,18 @@ to the queue.
 Run the Publisher class to send messages to the queue. When the queue has several messages in place, run the Consumer class.
 Note that the consumer class will not terminate the connection and will continuously listen for messages.
 
+# Exchanges in RabbitMQ
+
+Each exchange type should be demonstrated with different exchanges and set to the give type. The binding can be set up through
+the queue itself or via the exchange in the management UI, though there must be bound between the exchange and the
+queue(s).
+
 ## Direct Exchange
 
-The exchange funnels messages with a _routing key_ to a queue with a matching _binding key_. The connection can be set up through
- the queue itself or via the exchange in the management UI, though there must be a connection between the exchange and the 
-queue. An exchange can connect to multiple queues, each with different binding keys. The message that hits the exchange is then 
+The exchange funnels messages with a _routing key_ to a queue with a matching _binding key_. An exchange can bind to 
+multiple queues, each with different binding keys. The message that hits the exchange is then 
 sent to the appropriate queue based on the routing key in the message.
+
+## Fanout Exchange
+
+The exchange sends the message to all queues that are bound to the exchange.
